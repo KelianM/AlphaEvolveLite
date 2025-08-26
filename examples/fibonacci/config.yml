@@ -6,29 +6,30 @@ experiment:
   save_top_k: 5               # number of top programs to save one completion of the experiment
 
 llm:
-  provider: gemini
-  llm_timeout: 90.0  # Global timeout for all LLM requests
+  provider: custom
+  llm_timeout: 300.0  # Global timeout for all LLM requests
   models:
-    - name: gemini-2.5-flash
-      probability: 0.9
-      temperature: 0.8
-      retry_model: gemini-2.5-flash-lite # Use the faster model for retries and feedback
-    - name: gemini-2.5-pro
-      probability: 0.1
-      temperature: 0.9
-      retry_model: gemini-2.5-flash-lite # Use the faster model for retries and feedback
+    - name: qwen/qwen3-coder-30b
+      probability: 0.5
+      temperature: 0.7
+      retry_model: openai/gpt-oss-20b # Use the other model for retries and feedback
+    
+    - name: openai/gpt-oss-20b
+      probability: 0.5
+      temperature: 0.7
+      retry_model: qwen/qwen3-coder-30b # Use the other model for retries and feedback
 
 evolution:
-  population_size: 40
+  population_size: 2
   temperature: 1.5
-  max_generations: 20         # keeps PoC run short
-  inspiration_count: 4        # number of inspirations to use in each generation
+  max_generations: 2         # keeps PoC run short
+  inspiration_count: 1        # number of inspirations to use in each generation
   max_retries: 3              # number of retries for failed program generation
   eval_timeout: 30.0    # timeout in seconds for evaluation runs (0 = no timeout)
   enable_feedback: true       # Enable LLM-generated feedback for successful programs
   # Enhanced inspiration selection parameters
   selection_method: enhanced_inspiration  # Method: "boltzmann", "top_k_and_random", or "enhanced_inspiration"
-  recent_generations: 5       # Number of recent generations to consider for inspiration selection
+  recent_generations: 1       # Number of recent generations to consider for inspiration selection
   recent_percentile: 10.0     # Percentile threshold for recent generation selection (0-100)
   tabu_search_probability: 0.5  # Probability of using tabu search (fundamentally new approach) vs improvement
 

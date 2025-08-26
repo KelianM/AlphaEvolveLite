@@ -1,0 +1,173 @@
+db_uri: sqlite:///alphaevolve.db
+debug: true
+
+experiment:
+  label: code-golf-task-template
+  save_top_k: 3
+
+llm:
+  provider: custom  # Options: google, openai, openrouter, custom
+  llm_timeout: 300.0
+  models:
+    # Custom provider
+    # - name: qwen/qwen3-coder-30b
+    #   probability: 1.0
+    #   temperature: 0.7
+    - name: openai/gpt-oss-20b
+      probability: 1.0
+      temperature: 0.7
+
+    # OpenAI provider
+    # - name: gpt-5-2025-08-07
+    #   provider: openai
+    #   probability: 0.15
+    #   retry_model: gemini-2.5-flash
+    # - name: gpt-5-mini-2025-08-07
+    #   provider: openai
+    #   probability: 0.05
+    # - name: gpt-oss-120b
+    #   provider: openai
+    #   probability: 0.05
+    #   temperature: 0.7
+    # - name: o4-mini-high
+    #   provider: openai
+    #   probability: 0.05
+    #   retry_model: gemini-2.5-flash
+    # # GPT-4o-mini is replaced by GPT-OSS-120B
+    # - name: gpt-4o-mini
+    #   provider: openai
+    #   probability: 0.1
+    #   temperature: 0.7
+    
+    # Google provider
+    # - name: gemini-2.5-flash-lite
+    #   provider: google
+    #   probability: 1.0
+    #   temperature: 0.7
+      # reasoning_effort: medium
+    # - name: gemini-2.5-pro
+    #   provider: google
+    #   probability: 0.15
+    #   temperature: 0.7
+    #   retry_model: gemini-2.5-flash
+    # - name: gemini-2.5-flash
+    #   provider: google
+    #   probability: 0.05
+    #   temperature: 0.7
+    #   reasoning_effort: medium
+    
+    # Openrouter provider
+    # Anthropic Claude models - excellent for complex reasoning, high cost
+    # Opus is a bit too expensive and not very accurate for this experiment, replaced by Grok4
+    # - name: anthropic/claude-opus-4
+    #   probability: 0.025
+    #   temperature: 0.7
+    # - name: anthropic/claude-sonnet-4
+    #   probability: 0.1111
+    #   temperature: 0.7
+      # retry_model: gemini-2.5-flash
+    # - name: anthropic/claude-3.5-haiku
+    #   probability: 0.1111
+    #   temperature: 0.7
+      # retry_model: gemini-2.5-flash
+    # DeepSeek models - strong reasoning capabilities, free, and should be quite diverse
+    # - name: deepseek/deepseek-chat-v3-0324:free
+    #   probability: 0.1111
+    #   temperature: 0.7
+      # retry_model: gemini-2.5-flash
+    # - name: deepseek/deepseek-r1:free
+    #   probability: 0.1111
+    #   temperature: 0.7
+    # Qwen3 is one of the best models for code generation and is quite cheap
+    # - name: qwen/qwen3-coder
+    #   probability: 0.1111
+    #   temperature: 0.7
+    # Codestral is a good model for code generation and is quite cheap
+    # - name: mistralai/codestral-2508
+    #   probability: 0.1111
+    #   temperature: 0.7
+      # retry_model: gemini-2.5-flash
+    # Maverick is high capacity and quite cheap because of MoE
+    # - name: meta-llama/llama-4-maverick
+    #   probability: 0.1111
+    #   temperature: 0.7
+      # retry_model: gemini-2.5-flash
+    # # Horizon, is great for code generation, but unavailable atm
+    # - name: openrouter/horizon-beta
+    #   probability: 0.1
+    #   temperature: 0.7
+    #   retry_model: gemini-2.5-flash
+    # Grok4 is supposed to be one of the most powerful models out there, but quite expensive
+    # - name: x-ai/grok-4
+    #   probability: 0.1112
+    #   temperature: 0.7
+      # retry_model: gemini-2.5-flash
+    # Kimi-K2 is a good model for code generation and free
+    # - name: moonshotai/kimi-k2:free
+    #   probability: 0.1111
+    #   temperature: 0.7
+      # retry_model: gemini-2.5-flash
+
+
+  system_prompt: |
+    You are solving a Google Code Golf 2025 task - a pattern recognition and transformation problem.
+    
+    Your goal is to implement a function `p(input_data)` that transforms input grids to output grids.
+    
+    Constraints:
+    - The function must be named exactly 'p' (Google's convention)
+    - Input is a 2D list/array representing a colored grid
+    - Output must be a 2D list/array of the same format
+    - Colors are represented as integers (0-9)
+    - You may only use standard Python libraries
+    - Focus on finding the underlying pattern in the examples
+    
+    Evaluation Details:
+    - Your solution will be tested on train examples, test examples, and arc-gen examples
+    - All examples must pass for the solution to be considered correct
+    - Scoring combines correctness with code length (shorter correct code scores higher)
+    
+    Pattern Analysis Tips:
+    - Look for spatial transformations (rotations, reflections, translations)
+    - Identify object detection and manipulation patterns
+    - Consider color-based rules and transformations
+    - Look for geometric shapes and their relationships
+    - Analyze boundary conditions and edge effects
+    
+    Code Golf Tips:
+    - Write concise, readable code first, then optimize for length
+    - Avoid unnecessary variables and whitespace
+    
+    Example structure:
+    ```python
+    def p(input_data):
+        # Analyze the input grid
+        grid = input_data
+        
+        # Apply transformation logic
+        # (your pattern recognition and transformation code here)
+        
+        # Return transformed grid
+        return output_grid
+    ```
+
+evolution:
+  population_size: 20
+  temperature: 1.5
+  max_generations: 10
+  inspiration_count: 4
+  max_retries: 3
+  eval_timeout: 30.0
+  max_workers: 1
+  enable_feedback: false
+  selection_method: enhanced_inspiration
+  recent_generations: 2
+  recent_percentile: 15.0
+  tabu_search_probability: 0.2
+  # enable_early_stopping: true
+  # plateau_generations: 5
+  # plateau_threshold: 0.01
+
+problem:
+  entry_script: initial_program.py
+  evaluator: evaluate.py

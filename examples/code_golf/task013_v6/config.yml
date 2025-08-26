@@ -1,0 +1,133 @@
+db_uri: sqlite:///alphaevolve.db
+debug: true
+experiment:
+  label: code-golf-task013-v6
+  save_top_k: 3
+  notes: Evolve solutions for Google Code Golf 2025 task 013.
+llm:
+  provider: google
+  llm_timeout: 120.0
+  models:
+  - name: gemini-2.5-flash-lite
+    probability: 1.0
+    temperature: 0.7
+  system_prompt: "You are solving a Google Code Golf 2025 task - a pattern recognition\
+    \ and transformation problem.\n\nYour goal is to implement a function `p(input_data)`\
+    \ that transforms input grids to output grids.\n\nConstraints:\n- The function\
+    \ must be named exactly 'p' (Google's convention)\n- Input is a 2D list/array\
+    \ representing a colored grid\n- Output must be a 2D list/array of the same format\n\
+    - Colors are represented as integers (0-9)\n- You may only use standard Python\
+    \ libraries\n- Focus on finding the underlying pattern in the examples\n\nEvaluation\
+    \ Details:\n- Your solution will be tested on train examples, test examples, and\
+    \ arc-gen examples\n- All examples must pass for the solution to be considered\
+    \ correct\n- Scoring combines correctness with code length (shorter correct code\
+    \ scores higher)\n\nPattern Analysis Tips:\n- Look for spatial transformations\
+    \ (rotations, reflections, translations)\n- Identify object detection and manipulation\
+    \ patterns\n- Consider color-based rules and transformations\n- Look for geometric\
+    \ shapes and their relationships\n- Analyze boundary conditions and edge effects\n\
+    \nCode Golf Tips:\n- Write concise, readable code first, then optimize for length\n\
+    - Avoid unnecessary variables and whitespace\n\nExample structure:\n```python\n\
+    def p(input_data):\n    # Analyze the input grid\n    grid = input_data\n    \n\
+    \    # Apply transformation logic\n    # (your pattern recognition and transformation\
+    \ code here)\n    \n    # Return transformed grid\n    return output_grid\n```\n\
+    \n\nTask Examples:\n\nTraining Examples:\nExample 1:\nInput:\n[[0, 0, 0, 0, 0,\
+    \ 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n \
+    \    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]\n\nOutput:\n[[0, 0, 0, 0, 0, 2, 0, 8,\
+    \ 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0],\n     [0, 0, 0, 0, 0, 2,\
+    \ 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0],\n     [0, 0, 0, 0,\
+    \ 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0],\n     [0, 0,\
+    \ 0, 0, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0],\n    \
+    \ [0, 0, 0, 0, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0],\n\
+    \     [0, 0, 0, 0, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8,\
+    \ 0],\n     [0, 0, 0, 0, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2,\
+    \ 0, 8, 0],\n     [0, 0, 0, 0, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8,\
+    \ 0, 2, 0, 8, 0],\n     [0, 0, 0, 0, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2,\
+    \ 0, 8, 0, 2, 0, 8, 0],\n     [0, 0, 0, 0, 0, 2, 0, 8, 0, 2, 0, 8, 0, 2, 0, 8,\
+    \ 0, 2, 0, 8, 0, 2, 0, 8, 0]]\n\nExample 2:\nInput:\n[[0, 0, 0, 0, 0, 1, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]\n\nOutput:\n[[0, 0, 0, 0, 0, 1,\
+    \ 0, 0, 3, 0, 0, 1, 0, 0, 3, 0, 0, 1, 0, 0, 3, 0, 0],\n     [0, 0, 0, 0, 0, 1,\
+    \ 0, 0, 3, 0, 0, 1, 0, 0, 3, 0, 0, 1, 0, 0, 3, 0, 0],\n     [0, 0, 0, 0, 0, 1,\
+    \ 0, 0, 3, 0, 0, 1, 0, 0, 3, 0, 0, 1, 0, 0, 3, 0, 0],\n     [0, 0, 0, 0, 0, 1,\
+    \ 0, 0, 3, 0, 0, 1, 0, 0, 3, 0, 0, 1, 0, 0, 3, 0, 0],\n     [0, 0, 0, 0, 0, 1,\
+    \ 0, 0, 3, 0, 0, 1, 0, 0, 3, 0, 0, 1, 0, 0, 3, 0, 0],\n     [0, 0, 0, 0, 0, 1,\
+    \ 0, 0, 3, 0, 0, 1, 0, 0, 3, 0, 0, 1, 0, 0, 3, 0, 0],\n     [0, 0, 0, 0, 0, 1,\
+    \ 0, 0, 3, 0, 0, 1, 0, 0, 3, 0, 0, 1, 0, 0, 3, 0, 0]]\n\nExample 3:\nInput:\n\
+    [[0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0,\
+    \ 0, 0, 0, 0, 0],\n     [2, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0,\
+    \ 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 3],\n     [0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n\
+    \     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0,\
+    \ 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0,\
+    \ 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0]]\n\
+    \nOutput:\n[[0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n\
+    \     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0],\n     [2, 2, 2, 2, 2, 2, 2, 2, 2],\n     [0, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0],\n     [3, 3, 3, 3, 3, 3, 3, 3, 3],\n     [0, 0, 0, 0, 0,\
+    \ 0, 0, 0, 0],\n     [2, 2, 2, 2, 2, 2, 2, 2, 2],\n     [0, 0, 0, 0, 0, 0, 0,\
+    \ 0, 0],\n     [3, 3, 3, 3, 3, 3, 3, 3, 3],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n\
+    \     [2, 2, 2, 2, 2, 2, 2, 2, 2],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [3,\
+    \ 3, 3, 3, 3, 3, 3, 3, 3],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [2, 2, 2,\
+    \ 2, 2, 2, 2, 2, 2],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [3, 3, 3, 3, 3,\
+    \ 3, 3, 3, 3],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [2, 2, 2, 2, 2, 2, 2,\
+    \ 2, 2]]\n\nTest Example:\nInput:\n[[0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n\
+    \     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n     [0, 0, 0, 0,\
+    \ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\n    \
+    \ [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\
+    \ 0, 0]]\n\nExpected Output:\n[[0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 3,\
+    \ 0, 0, 0, 0, 4, 0, 0, 0, 0, 3, 0],\n     [0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 4, 0,\
+    \ 0, 0, 0, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 3, 0],\n     [0, 0, 0, 0, 0, 3, 0, 0,\
+    \ 0, 0, 4, 0, 0, 0, 0, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 3, 0],\n     [0, 0, 0, 0,\
+    \ 0, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 3, 0],\n    \
+    \ [0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0,\
+    \ 3, 0],\n     [0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 3, 0, 0, 0, 0, 4,\
+    \ 0, 0, 0, 0, 3, 0],\n     [0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 3, 0,\
+    \ 0, 0, 0, 4, 0, 0, 0, 0, 3, 0],\n     [0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 4, 0, 0,\
+    \ 0, 0, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 3, 0],\n     [0, 0, 0, 0, 0, 3, 0, 0, 0,\
+    \ 0, 4, 0, 0, 0, 0, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 3, 0],\n     [0, 0, 0, 0, 0,\
+    \ 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 3, 0],\n     [0,\
+    \ 0, 0, 0, 0, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 3, 0]]\n\
+    \nYour task is to find the pattern that transforms the input grids to the output\
+    \ grids."
+evolution:
+  population_size: 3
+  temperature: 1.5
+  max_generations: 10
+  inspiration_count: 1
+  max_retries: 3
+  eval_timeout: 30.0
+  max_workers: 1
+  enable_feedback: false
+  selection_method: enhanced_inspiration
+  recent_generations: 1
+  recent_percentile: 15.0
+  tabu_search_probability: 0.2
+problem:
+  entry_script: examples/code_golf/task013_v6/initial_program.py
+  evaluator: examples/code_golf/task013_v6/evaluate.py
